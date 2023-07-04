@@ -35,30 +35,34 @@ export async function handler(event, context) {
             return {
                 statusCode: 303,
                 headers: {
-                    "Location": `/error?msg=${encodeURIComponent("You cannot submit ban appeals with this Discord account.")}`,
+                    "Location": `/error?msg=${encodeURIComponent("Вы не можете подать аппеляцию с этого аккаунта.")}`,
                 },
             };
         }
         
         const message = {
             embed: {
-                title: "New appeal submitted!",
+                title: "Новая аппеляция подана!",
                 timestamp: new Date().toISOString(),
                 fields: [
                     {
-                        name: "Submitter",
+                        name: "Предъявитель",
                         value: `<@${userInfo.id}> (${userInfo.username}#${userInfo.discriminator})`
                     },
                     {
-                        name: "Why were you banned?",
+                        name: "Почему вы были забанены?",
                         value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
-                        name: "Why do you feel you should be unbanned?",
+                        name: "Почему именно Вы должны быть разбанены?",
                         value: payload.appealText.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
-                        name: "What will you do to avoid being banned in the future?",
+                        name: "Что Вы сделаете для избегания бана в будущем?",
+                        value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
+                    },
+                    {
+                        name: "Что Вы сделаете для избегания бана в будущем?",
                         value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
                     }
                 ]
